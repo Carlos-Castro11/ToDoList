@@ -31,7 +31,6 @@ do
         case "r":
             Console.WriteLine("\n");
             isValid = true;
-            removeTask(tasks);
             break;
 
         case "e":
@@ -71,15 +70,3 @@ void showtTasks(List<string> tasks)
     isValid = false;
 }
 
-void removeTask(List<string> tasks)
-{
-    Console.WriteLine("Type the id for remove the task: ");
-    var idTaskOnStringFormat = Console.ReadLine();
-    var idTaskOnIntFormat = int.Parse(idTaskOnStringFormat);
-    tasks.ForEach(task =>
-    {
-        var index = tasks.IndexOf(task);
-        Console.WriteLine($"{task} teste  {index}");
-    });
-    isValid = false;
-}
