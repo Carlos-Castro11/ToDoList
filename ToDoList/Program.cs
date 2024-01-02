@@ -79,7 +79,7 @@ void removeTask(List<string> tasks)
     tasks.ForEach(task =>
     {
         var index = tasks.IndexOf(task);
-        Console.WriteLine($"{task}  {index}");
+        Console.WriteLine($"{task} teste  {index}");
     });
     isValid = false;
 }
