@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 string userChoice;
-bool isValid = true;
+bool isToShowOptionAgain = true;
 List<string> tasks = new List<string>();
 
 do
@@ -19,31 +19,31 @@ do
     {
         case "s":
             Console.WriteLine("\n");
-            isValid = true;
+            isToShowOptionAgain = true;
             showtTasks(tasks);
             break;
         case "a":
             Console.WriteLine("\n");
-            isValid = true;
+            isToShowOptionAgain = true;
             addTask();
             break;
 
         case "r":
             Console.WriteLine("\n");
-            isValid = true;
+            isToShowOptionAgain = true;
+            removeTask(tasks);
             break;
 
         case "e":
             Console.WriteLine("\n");
-            isValid = true;
             return;
 
         default:
             Console.WriteLine("Invalid answer");
-            isValid = false;
+            isToShowOptionAgain = false;
             break;
     }
-} while (!isValid);
+} while (!isToShowOptionAgain);
 
 Console.ReadKey();
 
@@ -52,7 +52,7 @@ void addTask()
     Console.WriteLine("set a Task name: ");
     string task = Console.ReadLine();
     tasks.Add(task);
-    isValid = false;
+    isToShowOptionAgain = false;
     Console.WriteLine("\n");
 
 }
@@ -67,6 +67,22 @@ void showtTasks(List<string> tasks)
         Console.WriteLine($"{index + 1} - {task}");
     });
     Console.WriteLine("\n");
-    isValid = false;
+    isToShowOptionAgain = false;
 }
 
+void removeTask(List<string> tasks)
+{
+    Console.WriteLine("Type the id for remove the task: ");
+    var indexTaskOnStringFormat = Console.ReadLine();
+    var indexTaskOnIntFormat = int.Parse(indexTaskOnStringFormat) - 1;
+    tasks.ToList().ForEach(task =>
+    {
+        var index = tasks.IndexOf(task);
+        if (indexTaskOnIntFormat == index)
+        {
+            Console.WriteLine($"A task: {task} foi removida.");
+            tasks.Remove(task);
+        };
+    });
+    isToShowOptionAgain = false;
+}
