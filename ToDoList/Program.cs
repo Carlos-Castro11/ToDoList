@@ -95,15 +95,15 @@ void removeTask(List<string> tasks)
         Writetitle("Type the id for remove the task");
         var indexTaskOnStringFormat = Console.ReadLine();
         var indexTaskOnIntFormat = int.Parse(indexTaskOnStringFormat) - 1;
-        tasks.ToList().ForEach(task =>
+        foreach (var item in tasks.ToList())
         {
-            var index = tasks.IndexOf(task);
+            var index = tasks.IndexOf(item);
             if (indexTaskOnIntFormat == index)
             {
-                Console.WriteLine($"The task {task} was deleted.");
-                tasks.Remove(task);
+                Console.WriteLine($"The task {item} was deleted.");
+                tasks.Remove(item);
             };
-        });
+        }
     } else
     {
         Console.WriteLine(message);
