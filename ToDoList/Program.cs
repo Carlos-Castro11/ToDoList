@@ -1,36 +1,43 @@
-﻿using System.Threading.Tasks;
+﻿using System.Drawing;
+using System.Threading.Tasks;
 
 string userChoice;
-bool isToShowOptionAgain = true;
+bool isToShowOptionsAgain = true;
 List<string> tasks = new List<string>();
-
+string message = "================== Don't have any tasks yet ======================";
 do
 {
-    Console.WriteLine("Hello!");
     Console.WriteLine("\n");
+    Console.WriteLine("Hi! Welcome to your toDo list app.");
+    Console.WriteLine("\n");
+    Console.ForegroundColor = ConsoleColor.Blue;
     Console.WriteLine("[S] See all toDos");
+    Console.ForegroundColor = ConsoleColor.DarkGreen;
     Console.WriteLine("[A] Add a toDo");
+    Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("[R] Remove a toDo");
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
     Console.WriteLine("[E] Exit");
     Console.WriteLine("\n");
+    Console.ResetColor();
     Console.WriteLine("Choose an option: ");
     userChoice = Console.ReadLine().ToLower();
     switch (userChoice)
     {
         case "s":
             Console.WriteLine("\n");
-            isToShowOptionAgain = true;
+            isToShowOptionsAgain = true;
             showtTasks(tasks);
             break;
         case "a":
             Console.WriteLine("\n");
-            isToShowOptionAgain = true;
+            isToShowOptionsAgain = true;
             addTask();
             break;
 
         case "r":
             Console.WriteLine("\n");
-            isToShowOptionAgain = true;
+            isToShowOptionsAgain = true;
             removeTask(tasks);
             break;
 
@@ -40,49 +47,72 @@ do
 
         default:
             Console.WriteLine("Invalid answer");
-            isToShowOptionAgain = false;
+            isToShowOptionsAgain = false;
             break;
     }
-} while (!isToShowOptionAgain);
+} while (!isToShowOptionsAgain);
 
 Console.ReadKey();
 
 void addTask()
 {
-    Console.WriteLine("set a Task name: ");
+    Console.ForegroundColor = ConsoleColor.DarkGreen;
+    Writetitle("Set a Task name");
     string task = Console.ReadLine();
     tasks.Add(task);
-    isToShowOptionAgain = false;
+    isToShowOptionsAgain = false;
     Console.WriteLine("\n");
-
+    Console.ResetColor();
 }
 
 void showtTasks(List<string> tasks)
 {
-    Console.WriteLine("================== Showing all toDo List ======================");
-    tasks.ForEach(task =>
+    Console.ForegroundColor = ConsoleColor.Blue;
+    if (tasks.Count() > 0)
     {
-        task.ToUpper();
-        var index = tasks.IndexOf(task);
-        Console.WriteLine($"{index + 1} - {task}");
-    });
-    Console.WriteLine("\n");
-    isToShowOptionAgain = false;
+        Writetitle("Showing all toDo list");
+        tasks.ForEach(task =>
+        {
+            task.ToUpper();
+            var index = tasks.IndexOf(task);
+            Console.WriteLine($"{index + 1} - {task}");
+        });
+        Console.WriteLine("\n");
+        Console.ResetColor();
+    } else
+    {
+        Console.WriteLine(message);
+    }
+    Console.ResetColor();
+    isToShowOptionsAgain = false;
 }
 
 void removeTask(List<string> tasks)
 {
-    Console.WriteLine("Type the id for remove the task: ");
-    var indexTaskOnStringFormat = Console.ReadLine();
-    var indexTaskOnIntFormat = int.Parse(indexTaskOnStringFormat) - 1;
-    tasks.ToList().ForEach(task =>
+    Console.ForegroundColor = ConsoleColor.Red;
+    if(tasks.Count() > 0)
     {
-        var index = tasks.IndexOf(task);
-        if (indexTaskOnIntFormat == index)
+        Writetitle("Type the id for remove the task");
+        var indexTaskOnStringFormat = Console.ReadLine();
+        var indexTaskOnIntFormat = int.Parse(indexTaskOnStringFormat) - 1;
+        tasks.ToList().ForEach(task =>
         {
-            Console.WriteLine($"A task: {task} foi removida.");
-            tasks.Remove(task);
-        };
-    });
-    isToShowOptionAgain = false;
+            var index = tasks.IndexOf(task);
+            if (indexTaskOnIntFormat == index)
+            {
+                Console.WriteLine($"The task {task} was deleted.");
+                tasks.Remove(task);
+            };
+        });
+    } else
+    {
+        Console.WriteLine(message);
+    }
+    Console.ResetColor();
+    isToShowOptionsAgain = false;
+}
+
+void Writetitle(string text)
+{
+     Console.WriteLine($"================== {text} ======================");
 }
