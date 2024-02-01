@@ -37,20 +37,19 @@ namespace concessionaire
 
          public void AddCarToList()
         {
-            Console.WriteLine("Name:");
+            Console.WriteLine("We need some information about the car before we put it up for sale...");
+            Console.WriteLine("Car's Name:");
             var name = Console.ReadLine();
-            Console.WriteLine("Plate:");
-            var plate = Console.ReadLine();
-            Console.WriteLine("Brand:");
+            var plate = getAndValidatePlate();
+            Console.WriteLine("Car's Brand:");
             var brand = Console.ReadLine();
-            Console.WriteLine("Release year:");
-            var yearOfRelease = Console.ReadLine();
-            var yearOfReleaseToInt = int.Parse(yearOfRelease);
-            Console.WriteLine("Price:");
-            var price = Console.ReadLine();
-            var priceToInt = int.Parse(price);
-
-            var newCar = new Car(name, plate, brand, yearOfReleaseToInt, priceToInt);
+            int yearOfRelease = getAndValidateYearOfRelease();
+            double price = getAndValidatePrice();
+            Console.WriteLine("\n");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("********* SUCCESS!! *********");
+            Console.ForegroundColor = ConsoleColor.White;
+            var newCar = new Car(name, plate, brand, yearOfRelease, price);
             cars.Add(newCar);
         }
 
@@ -69,5 +68,71 @@ namespace concessionaire
             }
             return response;
         }
+
+        private int getAndValidateYearOfRelease()
+        {
+            int yearOfReleaseInt;
+            bool isValid = false;
+            do
+            {
+                Console.WriteLine("Car's Release Year:");
+                var yearOfRelelase = Console.ReadLine();
+                if (int.TryParse(yearOfRelelase, out yearOfReleaseInt))
+                {
+                    if (yearOfReleaseInt < 1900 || yearOfReleaseInt > 2024)
+                    {
+                        Console.WriteLine("The year needs to be between 1900 and 2024.");
+                    } else
+                    {
+                        isValid = true;
+                    }
+                } else
+                {
+                    Console.WriteLine("You not typed a valid value for year.");
+                }
+            } while (isValid == false);
+            return yearOfReleaseInt;
+        }
+
+        private double getAndValidatePrice()
+        {
+            double priceDouble;
+            bool isValid = false;
+            do
+            {
+                Console.WriteLine("Car's Price:");
+                var price = Console.ReadLine();
+                if (double.TryParse(price, out priceDouble))
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    Console.WriteLine("You not typed a valid value for price.");
+                }
+            } while (isValid == false);
+            return priceDouble;
+        }
+
+        private string getAndValidatePlate()
+        {
+            bool isValid = false;
+            string plate;
+            do
+            {
+                Console.WriteLine("Car's Plate:");
+                plate = Console.ReadLine();
+                if(plate?.Length <= 5)
+                {
+                    Console.WriteLine("A plate need to have at least 6 numbers");
+                } else
+                {
+                    isValid = true;
+                }
+
+            } while (isValid == false);
+            return plate!;
+        }
     }
 }
+

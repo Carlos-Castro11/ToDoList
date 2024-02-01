@@ -1,68 +1,60 @@
 ﻿using concessionaire;
-using concessionaire.Services;
 
 var carList = new CarList();
 
-int userChoiceInt;
+bool isUserChoiceValid;
+string? userChoice;
 do
 {
     Console.WriteLine("\n");
-    Console.WriteLine("Hi! Welcome to your concessionaire.");
+    Console.WriteLine("=============================== Welcome to your favorite concessionare! ===============================");
+    Console.WriteLine("\n");
+    Console.WriteLine("choose one of the options below:");
     Console.WriteLine("\n");
     Console.ForegroundColor = ConsoleColor.Blue;
-    Console.WriteLine("[1] Buy a car");
+    Console.WriteLine("[1] LIST ALL CARS");
     Console.ForegroundColor = ConsoleColor.DarkGreen;
-    Console.WriteLine("[2] Add a car");
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("[3] Remove a car");
+    Console.WriteLine("[2] SELL A CAR");
     Console.ForegroundColor = ConsoleColor.DarkYellow;
-    Console.WriteLine("[4] Exit");
+    Console.WriteLine("[3] BUY A CAR");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("[4] EXIT");
+    Console.ForegroundColor = ConsoleColor.White;
+
     Console.WriteLine("\n");
-    Console.ResetColor();
-    Console.WriteLine("Choose an option: ");
-    var userChoiceString = Console.ReadLine().ToLower();
-    userChoiceInt = int.Parse(userChoiceString);
-
-    switch (userChoiceInt)
+    Console.WriteLine("Your choice:");
+    userChoice = Console.ReadLine();
+    validateUserChoice(userChoice);
+    switch (userChoice)
     {
-        case 1:
-            Console.WriteLine("\n");
+        case "1":
             carList.WriteAllCars();
-            Services.CreateClient();
-            SelectEspecificCar();
             break;
-        case 2:
-            Console.WriteLine("\n");
+        case "2":
             carList.AddCarToList();
-            carList.WriteAllCars();
             break;
-
-        case 3:
-            Console.WriteLine("\n");
-            break;
-
-        case 4:
-            Console.WriteLine("\n");
-            return;
-            //break;
-
-        default:
-            Console.WriteLine("Invalid answer");
+        case "3":
+            Console.WriteLine("Escolheu 3");
             break;
     }
-} while (userChoiceInt != 4);
+} while (userChoice != "4");
 
-Console.ReadKey();
-
-void SelectEspecificCar()
-{
-    var car = carList.GetCar();
-    Console.WriteLine("\n");
-    if (car != null)
+void validateUserChoice(string userChoice) {
+   int userChoiceInt;
+    if (int.TryParse(userChoice, out userChoiceInt))
     {
-        Console.WriteLine($"The car {car?._name}, brand {car?._brand} and price ${car?._price}");
-    } else
+        if(userChoiceInt >= 1 && userChoiceInt <= 4) {
+        } else
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("ERROR: O valor deve ser entre 1 e 4 apenas");
+        }
+    }
+    else
     {
-        Console.WriteLine("We don't have this car available...");
+        Console.WriteLine("\n");
+        Console.WriteLine("ERROR: Preencha um valor numérico.");
     }
 }
+
+Console.ReadKey();
