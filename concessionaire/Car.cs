@@ -8,19 +8,21 @@ namespace concessionaire
 {
     public class Car
     {
-        public String _name { get; private set; }
-        public String _plate { get; private set; }
-        public String _brand { get; private set; }
-        public int _yearOfRelease { get; private set; }
-        public double _price { get; private set; }
+        public int Id {  get; set; }
+        public String Name { get; private set; }
+        public String Plate { get; private set; }
+        public String Brand { get; private set; }
+        public int YearOfRelease { get; private set; }
+        public double Price { get; private set; }
 
-        public Car(String name, String plate, String brand, int yearOfRelease, double price)
+        public Car(int id, String name, String plate, String brand, int yearOfRelease, double price)
         {
-            _name = name.ToUpper();
-            _plate = plate;
-            _brand = brand;
-            _yearOfRelease = yearOfRelease;
-            _price = price;
+            Id = id;
+            Name = name.ToUpper();
+            Plate = plate;
+            Brand = brand;
+            YearOfRelease = yearOfRelease;
+            Price = price;
         }
     }
 }

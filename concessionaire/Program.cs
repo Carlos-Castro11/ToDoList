@@ -34,7 +34,10 @@ do
             carList.AddCarToList();
             break;
         case "3":
-            Console.WriteLine("Escolheu 3");
+            var listOfCarsWithEspecificName = carList.GetCar();
+            var listOfCarsWithEspecificNameValidated = carList.ValidateIfCarExist(listOfCarsWithEspecificName);
+            carList.verifyIfUserWantTheCar(listOfCarsWithEspecificNameValidated);
+            // FAZER VERIFY RETORNAR O TARGETCAR, CRIAR A PESSOA E CRIAR O SERVICO DE CALUCLO PARA SABER SE PODE COMPRAR, SE PODE, CONFIRMA E SE CONFIRMA REMOVE DA LISTA!
             break;
     }
 } while (userChoice != "4");
